@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang=en>
+<head>
+
+<title>COVID Screener Results</title>
+
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width, initial-scale=1">
+<link rel=manifest href="/manifest.webmanifest">
+<meta name=apple-mobile-web-app-status-bar-style content=default>
+
+<style>
+  body {
+    background-color: rgb(59, 178, 112);
+    padding: 0;
+    margin: 0;
+    color: white;
+    font-family: "HelveticaNeue-CondensedBlack", "Helvetica Neue";
+    text-align: center;
+  }
+
+  .title-bar {
+    background-color: rgb(0, 128, 1);
+    text-align: center;
+    line-height: 2.5em;
+    font-weight: 500;
+    font-size: 17px;
+    font-family: "Helvetica Neue";
+  }
+
+  .title-bar .close {
+    float: right;
+    border: 1px solid white;
+    margin: 0.5em;
+    line-height: 0.7em;
+    padding: 0;
+    font-size: 1.2em;
+    font-weight: 300;
+    padding-bottom: 0.2em;
+    padding-top: 0.01em;
+    padding-left: 0.15em;
+    padding-right: 0.1em;
+  }
+
+  .screenshot {
+    font-size: 24px;
+    margin-top: 0.5em;
+  }
+
+  .day-of-week {
+    font-size: 48px;
+  }
+
+  .date {
+    font-size: 30px;
+  }
+
+  .time {
+    font-size: 24px;
+  }
+
+  .circle-container {
+    position: relative;
+    display: inline-block;
+    margin-top: 1em;
+    width: 190px;
+    height: 190px;
+  }
+
+  .black-circle {
+    width: 190px;
+    height: 190px;
+    border-radius: 95px;
+    background-color: rgb(68, 75, 84);
+    position: absolute;
+  }
+
+  .white-circle {
+    left: 10px;
+    top: 10px;
+    width: 170px;
+    height: 170px;
+    border-radius: 85px;
+    background-color: white;
+    position: absolute;
+  }
+
+  .green-circle {
+    left: 20px;
+    top: 20px;
+    width: 150px;
+    height: 150px;
+    border-radius: 75px;
+    background-color: rgb(140, 207, 184);
+    position: absolute;
+  }
+
+  .check {
+    position: absolute;
+  }
+
+  svg line {
+    stroke: white;
+    stroke-linecap: round;
+    stroke-width: 11;
+  }
+
+  .school {
+    font-size: 48px;
+    margin-top: 0.5em;
+  }
+
+  .name, p {
+    font-family: "Helvetica Neue"
+  }
+
+  .name {
+    font-size: 32px;
+    margin-top: 0.05em;
+  }
+
+  p {
+    font-size: 24px;
+    margin: 0 1rem 0.2em 1em;
+    line-height: 1.1;
+  }
+
+  .bottom-white {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1.8em;
+    background-color: white;
+  }
+</style>
+
+</head>
+
+<body>
+  <div class=title-bar>
+    COVID Screener Results
+    <span class=close>&times;</span>
+  </div>
+
+  <div class=screenshot>
+    SCREENSHOT THIS PAGE
+  </div>
+
+  <div class=day-of-week>
+    Wednesday
+  </div>
+
+  <div class=date>
+    October 20, 2020
+  </div>
+
+  <div class=time>
+    7:20:15 AM
+  </div>
+
+  <div class=circle-container>
+    <div class=placeholder-circle></div>
+    <div class=black-circle></div>
+    <div class=white-circle></div>
+    <div class=green-circle></div>
+    <div class=check>
+      <svg width="180" height="180" xmlns="http://www.w3.org/2000/svg">
+        <line x1="48" y1="100" x2="76" y2="130"/>
+        <line style="stroke-linecap:square" x1="62" y1="115" x2="76" y2="129.5"/>
+        <line x1="76" y1="130" y2="58" x2="141"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class=school>
+    Highland Park<br>
+    Elementary
+  </div>
+
+  <div class=name>
+    Anderson Stacy - Parent
+  </div>
+
+  <p>
+    You are good to go!
+  </p>
+
+  <p>
+    Please show this confirmation upon entry to your work/school location.
+  </p>
+
+  <div class=bottom-white></div>
+
+  <script>
+    const d = new Date();
+    const params = new URLSearchParams(location.search);
+    const nameFromQueryString = params.get('name')
+    const data = {
+      day: new Intl.DateTimeFormat('en-US', {weekday: 'long'}).format(d),
+      date: `${
+          new Intl.DateTimeFormat('en-US', {month: 'long'}).format(d)
+       } ${d.getDate()}, ${d.getFullYear()}`,
+      name: nameFromQueryString? nameFromQueryString : 'Anderson Stacy',
+    };
+    const q = document.querySelector.bind(document);
+
+    q('.day-of-week').textContent = data.day;
+    q('.date').textContent = data.date;
+    q('.name').textContent = `${data.name} - Parent`;
+  </script>
+</body>
+</html>
